@@ -1,9 +1,9 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-    </div>
+    <h1>Welcome to Vue Locator</h1>
+    <Header />
     <router-view/>
+    <Footer />
   </div>
 </template>
 
@@ -15,19 +15,21 @@
   text-align: center;
   color: #2c3e50;
 }
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+
+li {
+  list-style-type: none;
 }
+
 </style>
 
 <script>
 import "normalize.css";
-export default {};
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+export default {
+  components: {
+    Header,
+    Footer
+  }
+};
 </script>
