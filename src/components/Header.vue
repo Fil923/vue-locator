@@ -6,12 +6,12 @@
 
 <style lang="scss" scoped>
 .header {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 </style>
 
 <script>
 export default {
-    name: "Header",
-}
+  name: "Header"
+};
 </script>
