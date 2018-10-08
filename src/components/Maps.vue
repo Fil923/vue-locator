@@ -1,6 +1,6 @@
 <template>
     <div id="Maps" class="maps-wrapper">
-        <p>This is the component maps</p>
+        <img src="https://www.placecage.com/400/400" alt="cage placeholder">
     </div>    
 </template>
 
