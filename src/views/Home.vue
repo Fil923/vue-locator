@@ -5,7 +5,7 @@
   </section>
 </template>
 
-<style lang="scss">
+<style lang="css">
 .home {
   display: flex;
   justify-content: center;
