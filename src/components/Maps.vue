@@ -5,6 +5,14 @@
 </template>
 
 <style lang="css" scoped>
+.maps-wrapper {
+  align-items: center;
+  border: 1px solid green;
+  display: flex;
+  justify-content: center;
+  order: 2;
+  width: 75%;
+}
 </style>
 
 
