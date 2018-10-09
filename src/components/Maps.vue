@@ -1,7 +1,7 @@
 <template>
     <div id="Maps" class="maps-wrapper">
         <img src="https://www.placecage.com/400/400" alt="cage placeholder">
-    </div>    
+    </div>
 </template>
 
 <style lang="css" scoped>
@@ -17,7 +17,14 @@
 
 
 <script>
+import { EventBus } from '../event-bus';
+
 export default {
-  name: "Maps"
+  name: "Maps",
+  mounted() {
+    EventBus.$on('storeSelected', store => {
+      console.log(store);
+    });
+  }
 };
 </script>
