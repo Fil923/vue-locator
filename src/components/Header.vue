@@ -1,17 +1,17 @@
 <template>
     <div id="Header" class="header">
-        <p>This is the header</p>
+        <h2>A simple store locator made with vue</h2>
     </div>
 </template>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
 .header {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 </style>
 
 <script>
 export default {
-    name: "Header",
-}
+  name: "Header"
+};
 </script>

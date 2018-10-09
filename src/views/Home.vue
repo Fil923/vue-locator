@@ -5,26 +5,13 @@
   </section>
 </template>
 
-<style lang="scss">
-  .home {
-    display: flex;
-    justify-content: center;
-    margin: 0 10px;
-    padding: 0 10px;
-  }
-
-  .sidebar-wrapper {
-    order: 1;
-    width: 25%;
-    border: 1px solid orange;
-  }
-
-  .maps-wrapper {
-    order: 2;
-    width: 75%;
-    border: 1px solid green;
-  }
-
+<style lang="css">
+.home {
+  display: flex;
+  justify-content: center;
+  margin: 0 10px;
+  padding: 0 10px;
+}
 </style>
 
 

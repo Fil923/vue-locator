@@ -1,16 +1,14 @@
 <template>
     <div id="Footer">
-        <p>This is the footer</p>
-        <p class="authors">Proudly made by Fil923 and Salmen (Add link to github)</p>
+        <p class="authors">Proudly made by <a href="https://github.com/Fil923">Fil923</a> &amp; <a href="https://github.com/SLMNBJ">SLMNBJ</a></p>
     </div>
 </template>
 
-<style lang="scss" scoped>
-
+<style lang="css" scoped>
 </style>
 
 <script>
 export default {
-    name: "Footer"
-}
+  name: "Footer"
+};
 </script>

@@ -1,10 +1,18 @@
 <template>
     <div id="Maps" class="maps-wrapper">
-        <p>This is the component maps</p>
+        <img src="https://www.placecage.com/400/400" alt="cage placeholder">
     </div>    
 </template>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
+.maps-wrapper {
+  align-items: center;
+  border: 1px solid green;
+  display: flex;
+  justify-content: center;
+  order: 2;
+  width: 75%;
+}
 </style>
 
 

@@ -5,7 +5,19 @@
     </div>
 </template>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
+.sidebar-wrapper {
+  order: 1;
+  width: 25%;
+  border: 1px solid orange;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.store-list {
+  width: 100%;
+}
 </style>
 
 <script>

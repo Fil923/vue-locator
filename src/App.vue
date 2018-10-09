@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="app">
     <h1>Welcome to Vue Locator</h1>
     <Header />
     <router-view/>
@@ -7,8 +7,12 @@
   </div>
 </template>
 
-<style lang="scss">
-#app {
+<style lang="css">
+body {
+  background-color: #f2f2f2;
+}
+
+.app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -16,10 +20,14 @@
   color: #2c3e50;
 }
 
+ul {
+  margin: 0;
+  padding: 0;
+}
+
 li {
   list-style-type: none;
 }
-
 </style>
 
 <script>
