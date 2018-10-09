@@ -12,6 +12,12 @@
     </ul>
 </template>
 
+<style lang="css" scoped>
+.store-list {
+  margin-bottom: 30px;
+}
+</style>
+
 <script>
 import Store from "@/components/Store";
 import { mapState } from "vuex";
@@ -30,3 +36,4 @@ export default {
   }
 };
 </script>
+

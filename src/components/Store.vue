@@ -1,6 +1,6 @@
 <template>
     <li class="store" @click="selectStore">
-        {{ store.name }}
+        {{ store.storeName }}
     </li>
 </template>
 
@@ -24,5 +24,7 @@ export default {
 <style lang="css" scoped>
 .store {
   cursor: pointer;
+  margin: 5px 0;
+  padding: 3px 0;
 }
 </style>
