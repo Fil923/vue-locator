@@ -5,6 +5,8 @@
 </template>
 
 <script>
+import { EventBus } from '@/event-bus';
+
 export default {
   name: "Store",
   props: {
@@ -15,7 +17,7 @@ export default {
   methods: {
     selectStore() {
       // We will comunicate with map component with event o store ?
-      this.$emit("storeSelected", this.store);
+      EventBus.$emit("storeSelected", this.store);
     }
   }
 };
