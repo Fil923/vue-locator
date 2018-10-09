@@ -17,40 +17,42 @@
 </style>
 
 <script>
-import { EventBus } from '../event-bus';
+import { EventBus } from "../event-bus";
 export default {
   name: "Maps",
-  props: ['name'],
-  data: function () {
+  props: ["name"],
+  data: function() {
     return {
       mapName: this.name,
-      markerCoordinates: [{
-        latitude: 44.50740353,
-        longitude: 11.34669353
-      }],
+      markerCoordinates: [
+        {
+          latitude: 44.50740353,
+          longitude: 11.34669353
+        }
+      ],
       map: null,
       bounds: null,
       markers: []
-    }
+    };
   },
   mounted() {
-    EventBus.$on('storeSelected', store => {
+    EventBus.$on("storeSelected", store => {
       console.log(store);
     });
     this.bounds = new google.maps.LatLngBounds();
-    const element = document.getElementById("Maps")
+    const element = document.getElementById("Maps");
     const mapCentre = this.markerCoordinates;
     const options = {
       center: new google.maps.LatLng(mapCentre.latitude, mapCentre.longitude)
-    }
+    };
     this.map = new google.maps.Map(element, options);
-    this.markerCoordinates.forEach((coord) => {
+    this.markerCoordinates.forEach(coord => {
       const position = new google.maps.LatLng(coord.latitude, coord.longitude);
-      const marker = new google.maps.Marker({ 
+      const marker = new google.maps.Marker({
         position,
         map: this.map
       });
-    this.markers.push(marker)
+      this.markers.push(marker);
       this.map.fitBounds(this.bounds.extend(position));
     });
   }
