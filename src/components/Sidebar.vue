@@ -1,6 +1,6 @@
 <template>
     <div id="Sidebar" class="sidebar-wrapper">
-        <p>This is the Sidebar component</p>
+        <h3 class="title">Store List</h3>
         <StoresList  />
     </div>
 </template>
@@ -8,7 +8,7 @@
 <style lang="css" scoped>
 .sidebar-wrapper {
   order: 1;
-  width: 25%;
+  width: 30%;
   border: 1px solid orange;
   display: flex;
   justify-content: center;
@@ -17,6 +17,8 @@
 
 .store-list {
   width: 100%;
+  overflow-y: scroll;
+  height: calc(100% - 60px);
 }
 </style>
 

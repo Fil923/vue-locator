@@ -11,6 +11,7 @@
   justify-content: center;
   margin: 0 10px;
   padding: 0 10px;
+  max-height: 800px;
 }
 </style>
 
