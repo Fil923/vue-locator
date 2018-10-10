@@ -20,7 +20,6 @@
 import { EventBus } from "../event-bus";
 export default {
   name: "Maps",
-  props: ["name"],
   data: function() {
     return {
       mapName: this.name,
@@ -36,24 +35,54 @@ export default {
     };
   },
   mounted() {
-    EventBus.$on("storeSelected", store => {
-      console.log(store);
-    });
-    this.bounds = new google.maps.LatLngBounds();
+    // Init
     const element = document.getElementById("Maps");
+    this.bounds = new google.maps.LatLngBounds();
     const mapCentre = this.markerCoordinates;
-    const options = {
+    // Options for generate the map
+    let options = {
+      zoom: 4,
       center: new google.maps.LatLng(mapCentre.latitude, mapCentre.longitude)
     };
+    // generation of the map
     this.map = new google.maps.Map(element, options);
-    this.markerCoordinates.forEach(coord => {
-      const position = new google.maps.LatLng(coord.latitude, coord.longitude);
-      const marker = new google.maps.Marker({
+    // For every marker in data we create a marker in the map
+    let position = new google.maps.LatLng(
+      this.markerCoordinates[0].latitude,
+      this.markerCoordinates[0].longitude
+    );
+    let marker = new google.maps.Marker({
+      position,
+      map: this.map
+    });
+    // Adding marker to array of markers
+    this.markers.push(marker);
+    // Setting bounds
+    this.map.fitBounds(this.bounds.extend(position));
+    let DeleteMarkers = () => {
+      //Loop through all the markers and remove
+      for (var i = 0; i < this.markers.length; i++) {
+          this.markers[i].setMap(null);
+      }
+      this.markers = [];
+    };
+    let updateMap = (latitude, longitude) => {
+      let position = new google.maps.LatLng(
+        latitude,
+        longitude
+      );
+      let marker = new google.maps.Marker({
         position,
         map: this.map
       });
+      // Adding marker to array of markers
       this.markers.push(marker);
+      // Setting bounds
       this.map.fitBounds(this.bounds.extend(position));
+    }
+    EventBus.$on("storeSelected", store => {
+      DeleteMarkers();
+      updateMap(store.spatialData.latitude, store.spatialData.longitude)
     });
   }
 };
