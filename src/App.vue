@@ -9,7 +9,7 @@
 
 <style lang="css">
 body {
-  background-color: #f2f2f2;
+  background-color: #41b883;
 }
 
 .app {
