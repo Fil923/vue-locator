@@ -1,33 +1,43 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-    </div>
+  <div id="app" class="app">
+    <h1>Welcome to Vue Locator</h1>
+    <Header />
     <router-view/>
+    <Footer />
   </div>
 </template>
 
-<style lang="scss">
-#app {
+<style lang="css">
+body {
+  background-color: #41b883;
+}
+
+.app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
 }
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style-type: none;
 }
 </style>
 
 <script>
 import "normalize.css";
-export default {};
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+export default {
+  components: {
+    Header,
+    Footer
+  }
+};
 </script>
