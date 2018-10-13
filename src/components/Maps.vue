@@ -7,12 +7,17 @@
 .maps-wrapper {
   background: gray;
   border: 1px solid green;
-  display: flex;
   height: auto;
-  justify-content: center;
   margin: 0 auto;
   order: 2;
   width: 70%;
+}
+
+@media only screen and (max-width: 600px) {
+  .maps-wrapper {
+    height: 200px;
+    width: 100%;
+  }
 }
 </style>
 

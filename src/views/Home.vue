@@ -13,6 +13,12 @@
   padding: 0 10px;
   max-height: 800px;
 }
+
+@media only screen and (max-width: 600px) {
+  .home {
+    flex-wrap: wrap;
+  }
+}
 </style>
 
 

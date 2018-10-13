@@ -26,9 +26,13 @@ export default {
 <style lang="scss" scoped>
 .store {
   cursor: pointer;
-  margin: 5px 0;
-  padding: 3px 0;
+  padding: 10px 0;
+  border-top: 1px solid #2c3e50;
   border-bottom: 1px solid #2c3e50;
+
+  &:first-child {
+    border-top: 2px solid #2c3e50;
+  }
 }
 
 .store:hover {
