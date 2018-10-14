@@ -39,6 +39,11 @@ export default {
       markers: []
     };
   },
+  computed: {
+    allStores() {
+      return this.$store.getters.stores
+    }
+  },
   mounted() {
     // Init
     const element = document.getElementById("Maps");
@@ -58,7 +63,11 @@ export default {
     );
     let marker = new google.maps.Marker({
       position,
-      map: this.map
+      map: this.map,
+      icon: {
+        url: require('@/assets/marker.png'),
+        scaledSize: new google.maps.Size(40, 58),
+      },
     });
     // Adding marker to array of markers
     this.markers.push(marker);
@@ -78,7 +87,11 @@ export default {
       );
       let marker = new google.maps.Marker({
         position,
-        map: this.map
+        map: this.map,
+        icon: {
+          url: require('@/assets/marker.png'),
+          scaledSize: new google.maps.Size(40, 58),
+        },
       });
       // Adding marker to array of markers
       this.markers.push(marker);
