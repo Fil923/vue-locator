@@ -83,7 +83,9 @@ export default {
       // Adding marker to array of markers
       this.markers.push(marker);
       // Setting bounds
-      this.map.fitBounds(this.bounds.extend(position));
+      // this.map.fitBounds(this.bounds.extend(position));
+      this.map.setCenter(position);
+      this.map.setZoom(11);
     }
     EventBus.$on("storeSelected", store => {
       DeleteMarkers();
