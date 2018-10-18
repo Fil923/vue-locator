@@ -19,9 +19,8 @@ export default new Vuex.Store({
   actions: {
     getStores({ commit }) {
       const database = firebase.database().ref("/stores");
-      database.once("value")
-       .then(snapshot => {
-        commit('saveStores', snapshot.val());
+      database.once("value").then(snapshot => {
+        commit("saveStores", snapshot.val());
       });
     }
   }
