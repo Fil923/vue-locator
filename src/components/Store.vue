@@ -5,25 +5,18 @@
 </template>
 
 <script>
-import { EventBus } from "@/event-bus";
+import { EventBus } from '@/event-bus';
 
 export default {
   name: "Store",
   props: {
     store: {
       required: true
-    },
-    idx: {
-      required: true
     }
   },
   methods: {
     selectStore() {
-<<<<<<< HEAD:src/components/StoreItem.vue
-      EventBus.$emit("storeSelected", {store: this.store, idx: this.idx });
-=======
       EventBus.$emit("storeSelected", this.store);
->>>>>>> master:src/components/Store.vue
     }
   }
 };

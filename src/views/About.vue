@@ -1,7 +1,6 @@
 <template>
     <div id="About" class="about-wrapper">
-        <Author />
-        <Author />
+        <Authors />
     </div>
 </template>
 
@@ -20,11 +19,11 @@
 </style>
 
 <script>
-import Author from "@/components/Author"
+import Authors from "@/components/Authors"
 export default {
     name: "about",
     components: {
-        Author
+        Authors
     }
 }
 </script>
