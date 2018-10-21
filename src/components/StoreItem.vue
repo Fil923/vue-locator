@@ -19,11 +19,7 @@ export default {
   },
   methods: {
     selectStore() {
-<<<<<<< HEAD:src/components/StoreItem.vue
-      EventBus.$emit("storeSelected", {store: this.store, idx: this.idx });
-=======
-      EventBus.$emit("storeSelected", this.store);
->>>>>>> master:src/components/Store.vue
+      EventBus.$emit("storeSelected", { store: this.store, idx: this.idx });
     }
   }
 };

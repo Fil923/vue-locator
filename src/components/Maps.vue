@@ -22,10 +22,10 @@
 </style>
 
 <script>
-import Vue from 'vue';
+import Vue from "vue";
 import { EventBus } from "../event-bus";
 import MarkerIcon from "@/assets/marker.png";
-import InfoWindowComponent from '@/components/MarkerInfoWindow.vue';
+import InfoWindowComponent from "@/components/MarkerInfoWindow.vue";
 
 export default {
   name: "Maps",
@@ -82,7 +82,7 @@ export default {
       const infoWindowContent = Vue.extend({
         ...InfoWindowComponent,
         data() {
-          return { 
+          return {
             store: store
           };
         }
@@ -131,7 +131,7 @@ export default {
     });
 
     EventBus.$on("storeSelected", storeInfo => {
-      google.maps.event.trigger(this.markers[storeInfo.idx],'click')
+      google.maps.event.trigger(this.markers[storeInfo.idx], "click");
     });
   }
 };

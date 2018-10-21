@@ -13,14 +13,14 @@ export default {
   data() {
     return {
       stores: []
-    }
+    };
   },
   computed: {
     address() {
       return this.store.address.line1;
     },
     telephone() {
-      return this.store.contacts[0].value
+      return this.store.contacts[0].value;
     }
   }
 };
@@ -29,9 +29,9 @@ export default {
 <style lang="scss" scoped>
 .info-window-wrapper {
   text-align: left;
-  font-size: .9rem;
+  font-size: 0.9rem;
   max-width: 300px;
-  
+
   span {
     display: block;
     padding-bottom: 10px;
