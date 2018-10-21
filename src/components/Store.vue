@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { EventBus } from "@/event-bus";
+import { EventBus } from '@/event-bus';
 
 export default {
   name: "Store",
@@ -16,7 +16,6 @@ export default {
   },
   methods: {
     selectStore() {
-      // We will comunicate with map component with event o store ?
       EventBus.$emit("storeSelected", this.store);
     }
   }

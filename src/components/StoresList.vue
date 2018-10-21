@@ -3,7 +3,7 @@
         <template v-if="showStores">
             <Store v-for="(store, idx) in stores"
                 :key="idx"
-                :store="store"
+                :store="store" 
             />
         </template>
         <template v-else>
