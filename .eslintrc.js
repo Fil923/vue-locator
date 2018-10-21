@@ -4,7 +4,8 @@ module.exports = {
     node: true
   },
   globals: {
-    google: true
+    google: true,
+    MarkerClusterer: true
   },
   extends: ["plugin:vue/essential", "@vue/prettier"],
   rules: {

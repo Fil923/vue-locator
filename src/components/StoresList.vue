@@ -1,9 +1,10 @@
 <template>
     <ul class="store-list">
-        <template v-if="showStores">
-            <Store v-for="(store, idx) in stores"
+        <template v-if="stores.length > 0">
+            <StoreItem v-for="(store, idx) in stores"
                 :key="idx"
                 :store="store"
+                :idx="idx"
             />
         </template>
         <template v-else>
@@ -16,20 +17,14 @@
 </style>
 
 <script>
-import Store from "@/components/Store";
-import { mapState } from "vuex";
+import StoreItem from "@/components/StoreItem";
+import { mapGetters } from "vuex";
 
 export default {
   name: "StoreList",
-  components: { Store },
+  components: { StoreItem },
   computed: {
-    ...mapState(["stores"]),
-    showStores() {
-      return this.stores && this.stores.length;
-    }
-  },
-  created() {
-    this.$store.dispatch("getStores");
+    ...mapGetters(["stores"])
   }
 };
 </script>

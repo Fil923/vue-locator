@@ -5,19 +5,21 @@
 </template>
 
 <script>
-import { EventBus } from '@/event-bus';
+import { EventBus } from "@/event-bus";
 
 export default {
   name: "Store",
   props: {
     store: {
       required: true
+    },
+    idx: {
+      required: true
     }
   },
   methods: {
     selectStore() {
-      // We will comunicate with map component with event o store ?
-      EventBus.$emit("storeSelected", this.store);
+      EventBus.$emit("storeSelected", {store: this.store, idx: this.idx });
     }
   }
 };

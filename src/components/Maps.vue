@@ -22,87 +22,116 @@
 </style>
 
 <script>
+import Vue from 'vue';
 import { EventBus } from "../event-bus";
+import MarkerIcon from "@/assets/marker.png";
+import InfoWindowComponent from '@/components/MarkerInfoWindow.vue';
+
 export default {
   name: "Maps",
-  data: function() {
+  data() {
     return {
-      mapName: this.name,
-      markerCoordinates: [
-        {
-          latitude: 44.50740353,
-          longitude: 11.34669353
+      mapSelector: "#Maps",
+      mapEl: null,
+      mapOptions: {
+        zoom: 11,
+        center: {
+          lat: 44.50740353,
+          lng: 11.34669353
         }
-      ],
-      map: null,
-      bounds: null,
-      markers: []
+      },
+      clusters: null,
+      bounds: null
     };
   },
   computed: {
-    allStores() {
-      return this.$store.getters.stores
+    stores() {
+      return this.$store.getters.stores;
+    },
+    markers() {
+      return this.$store.getters.markers;
+    }
+  },
+  methods: {
+    initMaps() {
+      return new google.maps.Map(this.mapEl, this.mapOptions);
+    },
+    setStoresMarkers() {
+      return this.stores.map(store => {
+        const marker = new google.maps.Marker({
+          position: {
+            lat: store.spatialData.latitude,
+            lng: store.spatialData.longitude
+          },
+          map: this.map,
+          title: store.storeName,
+          icon: {
+            url: MarkerIcon,
+            scaledSize: new google.maps.Size(40, 58)
+          }
+        });
+        this.bounds.extend(marker.getPosition());
+        marker.addListener("click", () => {
+          this.map.setZoom(17);
+          this.openMarkerInfoWindow(store, marker);
+        });
+        return marker;
+      });
+    },
+    createNewInfoWindowHtml(store) {
+      const infoWindowContent = Vue.extend({
+        ...InfoWindowComponent,
+        data() {
+          return { 
+            store: store
+          };
+        }
+      });
+      return new infoWindowContent().$mount().$el.innerHTML;
+    },
+    openMarkerInfoWindow(store, marker) {
+      this.$store.dispatch("closeOpenedInfoModal");
+      const content = this.createNewInfoWindowHtml(store);
+      const infoWindow = new google.maps.InfoWindow({ content });
+      this.$store.dispatch("setOpenedInfoModal", infoWindow);
+      infoWindow.open(this.map, marker);
+      this.map.panTo(marker.getPosition());
+    },
+    setClusters() {
+      return new MarkerClusterer(this.map, this.markers, {
+        maxZoom: 17,
+        gridSize: 53,
+        styles: [
+          {
+            textColor: "white",
+            textSize: 12,
+            height: 30,
+            width: 30,
+            url: "https://media.yoox.biz/ytos/resources/FERRARI/img/cluster_ferrari_retina.png",
+            backgroundPosition: "center",
+            borderRadius: "50%"
+          }
+        ]
+      });
+    },
+    fitVisibleMarkers() {
+      this.map.fitBounds(this.bounds);
     }
   },
   mounted() {
-    // Init
-    const element = document.getElementById("Maps");
+    this.mapEl = document.querySelector(this.mapSelector);
+    this.map = this.initMaps();
     this.bounds = new google.maps.LatLngBounds();
-    const mapCentre = this.markerCoordinates;
-    // Options for generate the map
-    let options = {
-      zoom: 4,
-      center: new google.maps.LatLng(mapCentre.latitude, mapCentre.longitude)
-    };
-    // generation of the map
-    this.map = new google.maps.Map(element, options);
-    // For every marker in data we create a marker in the map
-    let position = new google.maps.LatLng(
-      this.markerCoordinates[0].latitude,
-      this.markerCoordinates[0].longitude
-    );
-    let marker = new google.maps.Marker({
-      position,
-      map: this.map,
-      icon: {
-        url: require('@/assets/marker.png'),
-        scaledSize: new google.maps.Size(40, 58),
-      },
+
+    EventBus.$on("storesAreReady", () => {
+      const markers = this.setStoresMarkers();
+      this.$store.dispatch("saveMarkers", markers);
+      this.clusters = this.setClusters();
+      this.fitVisibleMarkers();
     });
-    // Adding marker to array of markers
-    this.markers.push(marker);
-    // Setting bounds
-    this.map.fitBounds(this.bounds.extend(position));
-    let DeleteMarkers = () => {
-      //Loop through all the markers and remove
-      for (var i = 0; i < this.markers.length; i++) {
-          this.markers[i].setMap(null);
-      }
-      this.markers = [];
-    };
-    let updateMap = (latitude, longitude) => {
-      let position = new google.maps.LatLng(
-        latitude,
-        longitude
-      );
-      let marker = new google.maps.Marker({
-        position,
-        map: this.map,
-        icon: {
-          url: require('@/assets/marker.png'),
-          scaledSize: new google.maps.Size(40, 58),
-        },
-      });
-      // Adding marker to array of markers
-      this.markers.push(marker);
-      // Setting bounds
-      // this.map.fitBounds(this.bounds.extend(position));
-      this.map.setCenter(position);
-      this.map.setZoom(11);
-    }
-    EventBus.$on("storeSelected", store => {
-      DeleteMarkers();
-      updateMap(store.spatialData.latitude, store.spatialData.longitude)
+
+    EventBus.$on("storeSelected", storeInfo => {
+      google.maps.event.trigger(this.markers[storeInfo.idx],'click')
     });
   }
 };
