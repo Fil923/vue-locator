@@ -22,88 +22,75 @@
 </style>
 
 <script>
-import { EventBus } from "../event-bus";
+import { EventBus } from "@/event-bus";
+import MarkerIcon from "@/assets/marker.png";
+import { mapState } from "vuex";
+
 export default {
   name: "Maps",
-  data: function() {
+  data() {
     return {
-      mapName: this.name,
-      markerCoordinates: [
-        {
-          latitude: 44.50740353,
-          longitude: 11.34669353
-        }
-      ],
       map: null,
-      bounds: null,
-      markers: []
+      markers: [],
+      mapElement: null,
+      mapOptions: {
+        zoom: 11
+      }
     };
   },
   computed: {
-    allStores() {
-      return this.$store.getters.stores
+    ...mapState(["stores"])
+  },
+  methods: {
+    deleteMarkers() {
+      this.markers.forEach(marker => marker.setMap(null));
+      this.markers = [];
+    },
+    createMarkerPopup(marker) {
+      const infowindow = new google.maps.InfoWindow();
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        return function() {
+          infowindow.setContent("hello world");
+          infowindow.open(map, marker);
+        }
+      })(marker, i));
+    },
+    createMarker(store) {
+      let marker = new google.maps.Marker({
+        position: new google.maps.LatLng(store.spatialData.latitude, store.spatialData.longitude),
+        map: this.map,
+        icon: {
+          url: MarkerIcon,
+          scaledSize: new google.maps.Size(40, 58)
+        }
+      });
+      this.createMarkerPopup(marker);
+      this.markers.push(marker);
+    },
+    setStoresMarkers() {
+      this.stores.forEach(store => {
+        this.createMarker(store);
+      });
+    },
+    initMap() {
+      this.map = new google.maps.Map(this.mapElement, this.mapOptions);
+    }
+  },
+  watch: {
+    stores() {
+      this.setStoresMarkers();
     }
   },
   mounted() {
-    // Init
-    const element = document.getElementById("Maps");
-    this.bounds = new google.maps.LatLngBounds();
-    const mapCentre = this.markerCoordinates;
-    // Options for generate the map
-    let options = {
-      zoom: 4,
-      center: new google.maps.LatLng(mapCentre.latitude, mapCentre.longitude)
-    };
-    // generation of the map
-    this.map = new google.maps.Map(element, options);
-    // For every marker in data we create a marker in the map
-    let position = new google.maps.LatLng(
-      this.markerCoordinates[0].latitude,
-      this.markerCoordinates[0].longitude
-    );
-    let marker = new google.maps.Marker({
-      position,
-      map: this.map,
-      icon: {
-        url: require('@/assets/marker.png'),
-        scaledSize: new google.maps.Size(40, 58),
-      },
-    });
-    // Adding marker to array of markers
-    this.markers.push(marker);
-    // Setting bounds
-    this.map.fitBounds(this.bounds.extend(position));
-    let DeleteMarkers = () => {
-      //Loop through all the markers and remove
-      for (var i = 0; i < this.markers.length; i++) {
-          this.markers[i].setMap(null);
-      }
-      this.markers = [];
-    };
-    let updateMap = (latitude, longitude) => {
-      let position = new google.maps.LatLng(
-        latitude,
-        longitude
-      );
-      let marker = new google.maps.Marker({
-        position,
-        map: this.map,
-        icon: {
-          url: require('@/assets/marker.png'),
-          scaledSize: new google.maps.Size(40, 58),
-        },
-      });
-      // Adding marker to array of markers
-      this.markers.push(marker);
-      // Setting bounds
-      // this.map.fitBounds(this.bounds.extend(position));
-      this.map.setCenter(position);
-      this.map.setZoom(11);
-    }
+    this.mapElement = document.getElementById("Maps");
+    this.initMap();
     EventBus.$on("storeSelected", store => {
-      DeleteMarkers();
-      updateMap(store.spatialData.latitude, store.spatialData.longitude)
+      this.deleteMarkers();
+      this.updateMap(store.spatialData.latitude, store.spatialData.longitude);
     });
+
+    // this.bounds = new google.maps.LatLngBounds();
+    // this.map.fitBounds(this.bounds.extend(position));
   }
 };
 </script>
