@@ -25,7 +25,7 @@
 import Vue from "vue";
 import { EventBus } from "../event-bus";
 import MarkerIcon from "@/assets/marker.png";
-import InfoWindowComponent from "@/components/MarkerInfoWindow.vue";
+import InfoWindowBaseComponent from "@/components/MarkerInfoWindow.vue";
 
 export default {
   name: "Maps",
@@ -41,7 +41,8 @@ export default {
         }
       },
       clusters: null,
-      bounds: null
+      bounds: null,
+      infoWindowBaseComponent: null
     };
   },
   computed: {
@@ -79,15 +80,10 @@ export default {
       });
     },
     createNewInfoWindowHtml(store) {
-      const infoWindowContent = Vue.extend({
-        ...InfoWindowComponent,
-        data() {
-          return {
-            store: store
-          };
-        }
-      });
-      return new infoWindowContent().$mount().$el.innerHTML;
+      const baseComponent = this.infoWindowBaseComponent;
+      return new baseComponent({
+        propsData: { store }
+      }).$mount().$el.innerHTML;
     },
     openMarkerInfoWindow(store, marker) {
       this.$store.dispatch("closeOpenedInfoModal");
@@ -122,6 +118,7 @@ export default {
     this.mapEl = document.querySelector(this.mapSelector);
     this.map = this.initMaps();
     this.bounds = new google.maps.LatLngBounds();
+    this.infoWindowBaseComponent = Vue.extend(InfoWindowBaseComponent);
 
     EventBus.$on("storesAreReady", () => {
       const markers = this.setStoresMarkers();
