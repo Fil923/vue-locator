@@ -1,5 +1,6 @@
 <template>
     <div id="Header" class="header-wrapper">
+        <h1>Welcome to Vue Locator</h1>
         <h2>A simple store locator made with vue</h2>
         <nav id="Navigation">
           <ul class="navigation-wrapper">
@@ -19,9 +20,9 @@
   display: flex;
   justify-content: center;
 
-    li {
-      padding: 0 10px;
-    }
+  li {
+    padding: 0 10px;
+  }
 }
 </style>
 

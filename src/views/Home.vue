@@ -12,7 +12,7 @@
   margin: 0 10px;
   padding: 0 10px;
   min-height: 400px;
-  max-height: 800px;
+  max-height: calc(100vh - 161px);
 }
 
 @media only screen and (max-width: 600px) {

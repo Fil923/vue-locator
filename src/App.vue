@@ -1,6 +1,5 @@
 <template>
   <div id="app" class="app">
-    <h1>Welcome to Vue Locator</h1>
     <Header />
     <router-view/>
     <Footer />
