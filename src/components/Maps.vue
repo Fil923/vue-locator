@@ -112,6 +112,12 @@ export default {
     },
     fitVisibleMarkers() {
       this.map.fitBounds(this.bounds);
+    },
+    storesAreReady() {
+      const markers = this.setStoresMarkers();
+      this.$store.dispatch("saveMarkers", markers);
+      this.clusters = this.setClusters();
+      this.fitVisibleMarkers();
     }
   },
   mounted() {
@@ -119,14 +125,9 @@ export default {
     this.map = this.initMaps();
     this.bounds = new google.maps.LatLngBounds();
     this.infoWindowBaseComponent = Vue.extend(InfoWindowBaseComponent);
-
-    EventBus.$on("storesAreReady", () => {
-      const markers = this.setStoresMarkers();
-      this.$store.dispatch("saveMarkers", markers);
-      this.clusters = this.setClusters();
-      this.fitVisibleMarkers();
-    });
-
+  },
+  created() {
+    EventBus.$on("storesAreReady", this.storesAreReady);
     EventBus.$on("storeSelected", storeInfo => {
       google.maps.event.trigger(this.markers[storeInfo.idx], "click");
     });
