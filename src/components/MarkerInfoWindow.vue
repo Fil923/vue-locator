@@ -12,10 +12,10 @@
 
 <script>
 export default {
-  data() {
-    return {
-      stores: []
-    };
+  props: {
+    store: {
+      required: true
+    }
   },
   computed: {
     getDay() {
@@ -23,7 +23,7 @@ export default {
       return day.getDay();
     },
     printDay() {
-      let day = ['Domenica', 'Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'];
+      let day = ["Domenica", "Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato"];
       return day[this.getDay];
     },
     address() {
